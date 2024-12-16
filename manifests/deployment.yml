@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: nitinvermapipelinesjavascriptdocker 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nitinvermapipelinesjavascriptdocker
+  template:
+    metadata:
+      labels:
+        app: nitinvermapipelinesjavascriptdocker 
+    spec:
+      containers:
+        - name: nitinvermapipelinesjavascriptdocker 
+          image: mycontainerregistry7.azurecr.io/nitinvermapipelinesjavascriptdocker
+          ports:
+          - containerPort: 8080
