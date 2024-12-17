@@ -5,8 +5,6 @@
 trigger:
 - main
 
-pool: aagentpool
-
 resources:
 - repo: self
 
@@ -32,8 +30,7 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: $(vmImageName)
+    pool: aagentpool
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
@@ -56,8 +53,7 @@ stages:
   - deployment: Deploy
     condition: and(succeeded(), not(startsWith(variables['Build.SourceBranch'], 'refs/pull/')))
     displayName: Deploy
-    pool:
-      vmImage: $(vmImageName)
+    pool: aagentpool      
     environment: 'nitin27vermapipelinesjavascriptdocker.default'
     strategy:
       runOnce:
@@ -85,8 +81,7 @@ stages:
   - deployment: DeployPullRequest
     displayName: Deploy Pull request
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/pull/'))
-    pool:
-      vmImage: $(vmImageName)
+    pool: aagentpool
 
     environment: 'nitin27vermapipelinesjavascriptdocker.$(k8sNamespaceForPR)'
     strategy:
